@@ -11,31 +11,31 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "20"
-      - name: Install dependencies 
-        run: npm install 
+      - name: Install dependencies
+        run: npm install
       - name: Run tests
-        run: npm test 
-      - name: Build Project
+        run: npm test
+      - name: Build project
         run: |
-        mkdir dist
-        echo "Build artifact created at $(date)" > dist/build.txt
+          mkdir dist
+          echo "Build artifact created at $(date)" > dist/build.txt
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
         with:
           name: dist-files
-          path: dist 
+          path: dist
 
-deploy:
-  runs-on: ubuntu-latest 
-  needs: build 
-  steps:
-    - name: Download artifact 
-      uses: actions/download-artifact@v4 
-      with:
-        name: dist-files
-        path: dist
-    - name: Deploy project 
-      run: |
-        echo "Deploying project..."
-        ls -R dist 
-        echo "Deployment successfull!"
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: dist-files
+          path: dist
+      - name: Deploy project
+        run: |
+          echo "Deploying project..."
+          ls -R dist
+          echo "Deployment successful!"
